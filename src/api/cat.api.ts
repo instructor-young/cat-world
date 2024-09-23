@@ -5,7 +5,7 @@ const catAPI = axios.create({
   baseURL: "https://api.thecatapi.com/v1",
   headers: {
     "x-api-key":
-      "live_2c3ifk5TO4g2CAqWYGOAH6RchwhQFf3eaJQIDtvLaNLMAtsn6m1hqrD7Kn8hDYbg",
+      "live_0AoIgMlfjCwC4SIxBgFi9qpemRF0Ct36qKIEvzgI6qq2AFxwhyywTRA1ebAbwS3a",
   },
 });
 
@@ -39,6 +39,21 @@ export async function getCatBreedImages(breedId: string) {
     const data = response.data;
 
     return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function vote(imageId: string, vote: "up" | "down") {
+  try {
+    const data = {
+      image_id: imageId,
+      value: vote === "up" ? 1 : -1,
+    };
+    const response = await catAPI.post("/votes", data);
+    const result = response.data;
+
+    return result;
   } catch (e) {
     console.log(e);
   }
